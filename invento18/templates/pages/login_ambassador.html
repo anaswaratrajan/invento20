@@ -1,0 +1,40 @@
+{% extends 'pages/base.html' %}
+
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
+<div class="page-content-register">
+  <div class="form-v9-content" style="background-image: url({% static 'invento19/images/form-v9.jpg' %});">
+      <form id="event_register_form" class="form-detail" action="" method="post">{% csrf_token %}
+          <h2 style="color: #fff;">Loin Form</h2>
+          {% if messages %}
+            <ul class="messages" style="list-style-type:none;">
+              {% for message in messages %}
+                <li style="color: #a11725;" {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} {% endif %}
+                    {{ message }}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          <div class="form-row-total">
+              <div class="form-row">
+                  <input type="text" name="email" id="email" class="input-text" placeholder="Your Email" required pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}">
+              </div>
+              <div class="form-row">
+                  <input type="text" name="referal_code" id="referal_code" class="input-text" placeholder="Referal Code">
+              </div>
+              <!-- <div class="form-row">
+                  <input type="text" name="text" id="department" class="input-text" placeholder=" Your Department" required>
+              </div> -->
+          </div>
+          <div class="form-row-last">
+            <!-- <input type="button" value="Generate" class="generate"> -->
+              <input type="submit" name="register" class="register" value="Login">
+          </div>
+      </form>
+  </div>
+</div>
+
+{% endblock %}

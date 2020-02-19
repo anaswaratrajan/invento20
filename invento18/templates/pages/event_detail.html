@@ -10,6 +10,13 @@
             <!-- NAVIGATION ENDS -->
 
             <!-- PRODUCT STARTS HERE -->
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+            <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+<style>
+  .swal2-styled {
+    padding: 0px 2em !important;
+}
+</style>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>
             function call_counter(url, pk) {
@@ -19,13 +26,77 @@
                 });
             }
         </script>
-      <div id="about" class="home-about-area pt-120">
+        <script>
+          //URL Value access
+          $(document).ready(function(){
+            //<!-- $('select>option:eq(1)').attr('selected', true); -->
+            //<!-- $('#events').val(decodeURIComponent($.urlParam('event'))); -->
+            //<!-- var str = jQuery.param( params ); -->
+
+            //<!-- console.log($.urlParam('event')); -->
+             //<!-- console.log(GetParameterValues('event').replace(/%20/g,' ')); -->
+          $('#referal').val(GetParameterValues('ref'));
+            function GetParameterValues(param) {
+              var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+              for (var i = 0; i < url.length; i++) {
+                  var urlparam = url[i].split('=');
+                  if (urlparam[0] == param) {
+                      return urlparam[1];
+                  }
+              }
+          }
+          });
+        </script>
+  <script>
+    $(document).ready(function(){
+      $("#share").click(function(){
+        /*Swal.fire({
+          title: 'Enter Your Referal Code',
+          input: 'text',
+          inputAttributes: {
+            autocapitalize: 'on'
+          },
+          showCancelButton: true,
+          confirmButtonText: 'Generate'
+        }).then((result) => {
+          if (result.value) {
+            var url = window.location.href;
+            console.log(url);
+      }
+      });*/
+      Swal.fire({
+        text: "Generate Link",
+        input: 'text',
+        inputAttributes: {
+          autocapitalize: 'on'
+        },
+        showCancelButton: true
+    }).then((result) => {
+        if (result.value) {
+          //var url = "https://www.invento2020.com/events/"+"?event={{event.title}}&" + "ref="+result.value;
+          var url = window.location.href + "?ref="+result.value;
+          //alert(url);
+          Swal.fire({
+            title : "Here is your sharable url",
+            text : url
+          })
+        }
+    });
+    });
+    $("#register").on("click", function(e){
+      e.preventDefault();
+      var ref = $('#referal').val();
+      window.location = "/events/?event={{event.title}}&ref="+ref;
+    });
+  });
+  </script>
+      <div id="about" class="home-about-area">
           <div class="product-container">
             <div class="container-fluid">
                   <div class="row product-sec">
                         <div class="col-lg-6 prod-left">
                               <div class="hero-image">
-                                    <img src="{{ event.imageurl }}" class="img wow fadeInUp" alt="">
+                                    <img src="{{ event.posterurl }}" class="img wow fadeInUp" alt="">
                               </div>
                         </div>
 
@@ -50,12 +121,29 @@
                                           {% endif %}
                                           {% if event.prize %}
                                           <input type="radio" id="radio-input-1" checked>
-                                          <label for="radio-input-1" class="input-helper input-helper--radio"> <span>Prize</span> : {{ event.prize }}K </label> </label>
+                                          <label for="radio-input-1" class="input-helper input-helper--radio"> <span>Prize</span> : {{ event.prize }}K </label>
                                           {% endif %}
                                           <br>
-                                          <!-- <button onclick="popup('invento-2020-004200');" class="tsbutton">Register Now</button><noscript id="tsNoJsMsg">Javascript on your browser is not enabled.</noscript><script src="//www.townscript.com/popup-widget/townscript-widget.nocache.js" type="text/javascript"></script> -->
                                           <!-- <button onclick="call_counter('/events/', 12345);">Register Now</button> -->
+                                          <!--We have temporarily closed registrations while we fix an error on our database. Sorry for the inconvenience.-->
+                                          {% if event.linkurl %}
+                                          <a class="btn btn-info" href="{{event.linkurl}}">Register Now</a>
+                                          {% elif event.title == "Selfeyaan" or event.title == "Weapon Expo" or event.title == "Electrical Expo" %}
+                                          <button type="button" name="button" style="display : none;">Register</button>
+                                          {% else %}
+                                          <input type="text" name="referal" id="referal" hidden>
+                                          <a id="register" class="btn btn-info" href="/events/?event={{event.title}}&ref=referal.value">Register Now</a>
+                                          {% endif %}
+                                          <!--{% if event.title == "Blockathon" %}
+                                          <a class="btn btn-info" href="https://www.google.com">Register Now</a>
+                                          {% elif event.title == "Balloon Fiesta" %}
+                                          <button onclick="popup('invento-2020-004200');" class="tsbutton">Register Now</button><noscript id="tsNoJsMsg">Javascript on your browser is not enabled.</noscript><script src="//www.townscript.com/popup-widget/townscript-widget.nocache.js" type="text/javascript"></script>
+                                          {% elif event.title == "Selfeyaan" or event.title == "Weapon Expo" %}
+                                          <button type="button" name="button" style="display : none;">Register</button>
+                                          {% else %}
                                           <a class="btn btn-info" href="/events/?event={{event.title}}">Register Now</a>
+                                          {% endif %}-->
+                                          <button id="share" class="btn btn-info">Share</button>
                                     </div>
                               </div>
                         </div>

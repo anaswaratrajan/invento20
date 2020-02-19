@@ -1,0 +1,17 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+<h1>Profile Page </h1><a href=="{% url 'logout' %}">Logout</a>
+
+          <h2>Welcome <span style="color: #F46404;">{{ current_ambassador.referal_code}} </h2>
+           <p>Email id: {{ current_ambassador.email}} </p>
+           <p>First Name: {{ current_ambassador.first_name}} </p>
+           <p>Last Name: {{current_ambassador.last_name}} </p>
+           <p>College: {{ current_ambassador.college}} </p>
+           <p>Points: {{ current_ambassador.points}} </p>
+
+</div>
+
+{% endblock %}

@@ -30,12 +30,17 @@ class Event(models.Model):
     day = models.PositiveIntegerField()
     imageurl = models.URLField(blank=True)
     posterurl = models.URLField(blank=True)
+    linkurl = models.URLField(blank=True)
     townscript_code = models.CharField(max_length=50, blank=True)
     pdfurl = models.URLField(blank=True)
 
     def admin_image(self):
         return self.imageurl
     admin_image.allow_tags = True
+
+    def admin_poster(self):
+        return self.posterurl
+    admin_poster.allow_tags = True
 
     def __str__(self):
         return self.title
@@ -50,18 +55,19 @@ class Event(models.Model):
 class Event_register(models.Model):
 
     first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    college = models.CharField(max_length=50)
     email =  models.EmailField(max_length=254)
     phone = models.CharField(max_length=20)
     referal_code = models.CharField(max_length=50)
     event = models.CharField(max_length=50)
 
 
-class Ambassador_register(models.Model):
+class Ambassador(models.Model):
+    referal_code = models.CharField(primary_key=True,max_length=50)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email =  models.EmailField(max_length=254)
     phone = models.CharField(max_length=20)
     college = models.CharField(max_length=250)
     department = models.CharField(max_length=250)
-    referal_code = models.CharField(max_length=50)
+    points = models.IntegerField(default=0)

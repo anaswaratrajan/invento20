@@ -1,13 +1,70 @@
 {% extends 'pages/base.html' %}
 {% load static %}
 {% block content %}
-<title>IT Events - Invento 19</title>
+<style>
+  .nav {
+    background-color: #000 !important;
+  }
+</style>
+<script>
+  $(document).ready(function(){
+    $(document).prop('title', 'IT Events - Invento 2020');
+  });
+  </script>
 
             <!-- NAVIGATION ENDS -->
 
             <div class="whitespaces"></div>
 
-            <!-- COLLECTION STARTS -->
+           <!-- COLLECTION STARTS -->
+
+      			{% if competitions %}
+            <div class="collection">
+                  <p id="heading">Competitions</p>
+
+                  <div class="section prod-list">
+                        <div class="container-fluid">
+                              <div class="row some-cards">
+									{% for competition in competitions %}
+                  {% if competition.imageurl %}
+                  <div class="col-lg-3 prod wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="box-container">
+                      <div class="box-item">
+                      <div class="flip-box">
+                        <div class="flip-box-front text-center" style="background-image: url('{{competition.imageurl}}');">
+                        </div>
+                        <div class="flip-box-back text-center" style="background-image: linear-gradient(to right, #09203f,  #537895);
+                        ">
+                          <div class="inner color-white">
+                            <h3 class="flip-box-header" style="color: #fff;">{{ competition.title }}</h3>
+                            <p style="color: #fff;">{{ competition.short_desc }}</p>
+                            <a class="btn btn-info" href="/events/{{ competition.pk }}">Learn More</a>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                  </div>
+
+                      </div>
+                      {% else %}
+                      <div class="col-lg-3 prod wow fadeInUp" data-wow-delay="0.5s">
+                      <div class="prod-holder">
+                      <a href="/events/{{ competition.pk }}">
+                        <img src="{{ competition.imageurl }}" alt="">
+                        <p id="price"> {{ competition.title }} </p>
+                        <p id="prod-desc"> {{ competition.short_desc }} </p>
+                      </a>
+                      </div>
+                      </div>
+                      {% endif %}
+									{% endfor %}
+                              </div>
+                        </div>
+                  </div>
+            </div>
+			{% endif %}
+
+
 			{% if workshops %}
             <div class="collection">
                   <p id="heading">Workshops</p>
@@ -16,15 +73,37 @@
                         <div class="container-fluid">
                               <div class="row some-cards">
 									{% for workshop in workshops %}
-                                    <div class="col-lg-3 prod wow fadeInUp" data-wow-delay="0.5s">
-                                          <div class="prod-holder">
-                                          <a href="/events/{{ workshop.pk }}">
-                                                <img src="{% static 'invento19/images/prod-04.jpg' %}" alt="">
-                                                <p id="price"> {{ workshop.title }} </p>
-                                                <p id="prod-desc"> {{ workshop.description | linebreaksbr }} </p>
-                                          </a>
-                                          </div>
-						</div>
+                  {% if workshop.imageurl %}
+                  <div class="col-lg-3 prod wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="box-container">
+                      <div class="box-item">
+                      <div class="flip-box">
+                        <div class="flip-box-front text-center" style="background-image: url('{{workshop.imageurl}}');">
+                        </div>
+                        <div class="flip-box-back text-center" style="background-image: linear-gradient(to right, #09203f,  #537895);
+                        ">
+                          <div class="inner color-white">
+                            <h3 class="flip-box-header" style="color: #fff;">{{ workshop.title }}</h3>
+                            <p style="color: #fff;">{{ workshop.short_desc }}</p>
+                            <a class="btn btn-info" href="/events/{{ workshop.pk }}">Learn More</a>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                  </div>
+
+              </div>
+                    {% else %}
+                    <div class="col-lg-3 prod wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="prod-holder">
+                    <a href="/events/{{ workshop.pk }}">
+                      <img src="{{ workshop.imageurl }}" alt="">
+                      <p id="price"> {{ workshop.title }} </p>
+                      <p id="prod-desc"> {{ workshop.short_desc }} </p>
+                    </a>
+                    </div>
+                    </div>
+                    {% endif %}
 									{% endfor %}
                               </div>
                         </div>
@@ -40,15 +119,37 @@
                         <div class="container-fluid">
                               <div class="row some-cards">
 									{% for show in shows %}
-                                    <div class="col-lg-3 prod wow fadeInUp" data-wow-delay="0.5s">
-                                                <div class="prod-holder">
-                                                <a href="/events/{{ show.pk }}">
-                                                      <img src="{% static 'invento19/images/prod-04.jpg' %}" alt="">
-                                                      <p id="price"> {{ show.title }} </p>
-                                                      <p id="prod-desc"> {{ show.description | linebreaksbr }} </p>
-                                                </a>
-                                                </div>
-                                    </div>
+                  {% if show.imageurl %}
+                  <div class="col-lg-3 prod wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="box-container">
+                      <div class="box-item">
+                      <div class="flip-box">
+                        <div class="flip-box-front text-center" style="background-image: url('{{show.imageurl}}');">
+                        </div>
+                        <div class="flip-box-back text-center" style="background-image: linear-gradient(to right, #09203f,  #537895);
+                        ">
+                          <div class="inner color-white">
+                            <h3 class="flip-box-header" style="color: #fff;">{{ show.title }}</h3>
+                            <p style="color: #fff;">{{ show.short_desc }}</p>
+                            <a class="btn btn-info" href="/events/{{ show.pk }}">Learn More</a>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                  </div>
+
+              </div>
+                    {% else %}
+                    <div class="col-lg-3 prod wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="prod-holder">
+                    <a href="/events/{{ show.pk }}">
+                      <img src="{{ show.imageurl }}" alt="">
+                      <p id="price"> {{ show.title }} </p>
+                      <p id="prod-desc"> {{ show.short_desc }} </p>
+                    </a>
+                    </div>
+                    </div>
+                    {% endif %}
 									{% endfor %}
                               </div>
                         </div>
@@ -56,29 +157,6 @@
             </div>
 			{% endif %}
 
-			{% if competitions %}
-            <div class="collection">
-                  <p id="heading">Competitions</p>
-
-                  <div class="section prod-list">
-                        <div class="container-fluid">
-                              <div class="row some-cards">
-									{% for competition in competitions %}
-                                    <div class="col-lg-3 prod wow fadeInUp" data-wow-delay="0.5s">
-                                          <div class="prod-holder">
-                                          <a href="/events/{{ competition.pk }}">
-                                                <img src="{% static 'invento19/images/prod-04.jpg' %}" alt="">
-                                                <p id="price"> {{ competition.title }} </p>
-                                                <p id="prod-desc"> {{ competition.description | linebreaksbr }} </p>
-                                          </a>
-                                          </div>
-						</div>
-									{% endfor %}
-                              </div>
-                        </div>
-                  </div>
-            </div>
-			{% endif %}
 
 			{% if talks %}
             <div class="collection">
@@ -91,9 +169,9 @@
                                     <div class="col-lg-3 prod wow fadeInUp" data-wow-delay="0.5s">
                                           <div class="prod-holder">
                                           <a href="/events/{{ talk.pk }}">
-                                                <img src="{% static 'invento19/images/prod-04.jpg' %}" alt="">
+                                                <img src="{{ talk.imageurl }}" alt="">
                                                 <p id="price"> {{ talk.title }} </p>
-                                                <p id="prod-desc"> {{ talk.description | linebreaksbr }} </p>
+                                                <p id="prod-desc"> {{ talk.short_desc | linebreaksbr }} </p>
                                           </a>
                                           </div>
 									</div>

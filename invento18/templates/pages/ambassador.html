@@ -1,11 +1,7 @@
-{% extends "base.html" %}
-
+{% extends "pages/base.html" %}
 {% block title %} Ambassador link generator {% endblock %}
-
 {% block content %}
-
 <script>
-
 var androidUrl;
 var baseUrl;
 var utmSource;
@@ -69,7 +65,7 @@ function copyToClipboard(){
 }
 
 </script>
-<div class="page" id="page-home">
+<div class="page" id="page-home banner"></div>
 <section id="banner">
   <div class="inner">
     <header>
@@ -93,6 +89,7 @@ function copyToClipboard(){
 
     </header>
   </div>
-</section></div>
+</section>
+</div>
 
-{% endblock content %}
+{% endblock %}

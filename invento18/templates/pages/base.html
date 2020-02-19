@@ -49,9 +49,9 @@
 </head>
 <body>
   <div class="container-fluid">
+    <!-- <div id="particles-js1"></div> -->
   <header>
       <div class="shop-container">
-
             <!-- NAVIGATION STARTS -->
 
             <div class="nav">
@@ -72,8 +72,18 @@
                               <li><a href="{% url 'home' %}">Home</a></li>
                               <li><a href="{% url 'general' %}">General Events</a></li>
                               <li><a href="{% url 'sta' %}">Saptha</a></li>
+                              <li><a class="dropdown-toggle" href="#">Departments</a>
+                                <div class="dropdown-menu">
+                                  <a class="dropdown-item" href="{% url 'cse' %}">CSE Events</a>
+                                  <a class="dropdown-item" href="{% url 'ece' %}">ECE Events</a>
+                                  <a class="dropdown-item" href="{% url 'eee' %}">EEE Events</a>
+                                  <a class="dropdown-item" href="{% url 'it' %}">IT Events</a>
+                                  <a class="dropdown-item" href="{% url 'me' %}">MECH Events</a>
+                                </div>
+                              </li>
                               <li><a href="{% url 'campus-ambassador' %}">Campus Ambassador</a></li>
                               <li><a href="https://docs.google.com/forms/d/1v4_VukdcPQROE34OEMKgJjz8vLJZVqNKbXeNEZ5XUFY/edit">Classmates Invento</a></li>
+                              <li><a href="{% url 'developers' %}">Developers</a></li>
                               <!--<li><a href="{% url 'cse' %}">CSE Events</a></li>
                               <li><a href="{% url 'ece' %}">ECE Events</a></li>
                               <li><a href="{% url 'eee' %}">EEE Events</a></li>
@@ -143,7 +153,22 @@
       <!-- FOOTER ENDS -->
 
 <!-- for Particle JS -->
-<script type="text/javascript">
+<!-- <script src="{% static 'invento19/js/particles.js' %}"></script>
+            <script src="{% static 'invento19/js/app1.js' %}"></script> -->
+
+
+<script>
+  $(document).ready(function(){
+    $(".dropdown-toggle").on( "click", function() {
+      if($(".dropdown-menu").is(":hidden")) {
+        $(".dropdown-menu").css("display", "block");
+      } else {
+        $(".dropdown-menu").css("display", "none");
+      }
+    });
+});
+</script>
+<script>
 
 //Scroll reveal animations
 
