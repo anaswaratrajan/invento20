@@ -11,12 +11,51 @@
 
             <!-- PRODUCT STARTS HERE -->
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+            <script src="{% static 'invento19/js/clipboard.min.js' %}"></script>
             <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 <style>
   .swal2-styled {
     padding: 0px 2em !important;
 }
+#share {
+  height: 38px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.clip {
+  width: 40px;
+  background-color: transparent;
+  margin-left: 33%;
+    margin-top: -12%;
+    position: absolute;
+}
+@media only screen and (max-width: 600px) {
+  .clip {
+    margin-left: 40%;
+    margin-top: -20%;
+  }
+}
+
+.clip:hover {
+  background-color: transparent;
+}
+.clip:active {
+  border: none;
+  outline: none;
+}
+.clip:focus {
+  outline: 0px;
+}
+.clip > img {
+  width: 20px;
+  margin-top: -20%;
+}
 </style>
+<script>
+  $(document).ready(function(){
+    $(document).prop('title', '{{event.title}} - Invento 2020');
+  });
+  </script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script>
             function call_counter(url, pk) {
@@ -65,7 +104,8 @@
       }
       });*/
       Swal.fire({
-        text: "Generate Link",
+        title:"Campus Ambassador Sharable Link Generator",
+        text: "Enter Referral Code to generate sharable URL",
         input: 'text',
         inputAttributes: {
           autocapitalize: 'on'
@@ -74,15 +114,26 @@
     }).then((result) => {
         if (result.value) {
           //var url = "https://www.invento2020.com/events/"+"?event={{event.title}}&" + "ref="+result.value;
-          var url = window.location.href + "?ref="+result.value;
+          var url = window.location.href + "?ref="+result.value.toUpperCase();
           //alert(url);
           Swal.fire({
             title : "Here is your sharable url",
-            text : url
+            html : '<h1 id="foo">'+url+'</h1><button class="clip" data-clipboard-action="copy" data-clipboard-target="#foo"><img src="{% static "invento19/images/clippy.svg" %}"" alt="Copy to clipboard"></button>',
           })
         }
     });
     });
+
+
+    $("#share-ref").click(function(){
+        var url = window.location.href + "?ref="+ "{{ ref }}" ;
+        Swal.fire({
+          title : "Here is your shareable url!!!",
+          text : url
+        })
+
+  });
+
     $("#register").on("click", function(e){
       e.preventDefault();
       var ref = $('#referal').val();
@@ -90,13 +141,24 @@
     });
   });
   </script>
+  <script>
+    var clipboard = new ClipboardJS('.clip');
+
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+    </script>
       <div id="about" class="home-about-area">
           <div class="product-container">
             <div class="container-fluid">
                   <div class="row product-sec">
                         <div class="col-lg-6 prod-left">
-                              <div class="hero-image">
-                                    <img src="{{ event.posterurl }}" class="img wow fadeInUp" alt="">
+                              <div class="hero-image p-5">
+                                    <img style="border-radius: 10px;" src="{{ event.posterurl }}" class="img wow fadeInUp" alt="">
                               </div>
                         </div>
 
@@ -110,7 +172,8 @@
                                           <input type="radio" id="radio-input-1" checked>
                                           <label for="radio-input-1" class="input-helper input-helper--radio"> <span>Category</span> : {{event.get_category_display}}</label>  <br>
                                           <input type="radio" id="radio-input-1" checked>
-                                          <label for="radio-input-1" class="input-helper input-helper--radio"> <span>Day</span> : {% if event.day == 1 %} March 05 {% elif event.day == 2 %} March 06 {% elif event.day == 3 %} March 07 {% elif event.day == 4 %} March 08 {% endif %}</label>  <br>
+                                          <label for="radio-input-1" class="input-helper input-helper--radio">
+                                             <span>Day</span> : {% if event.day == "1" %} March 05 {% elif event.day == "2" %} March 06 {% elif event.day == "3" %} March 07 {% elif event.day == "4" %} March 08 {% elif event.day == "1,2" %} March 05,06 {% elif event.day == "2,3" %} March 06,07 {% elif event.day == "3,4" %} March 07,08 {% elif event.day == "1,2,3" %} March 05,06,07 {% elif event.day == "2,3,4" %} March 06,07,08 {% elif event.day == "1,2,3,4" %} March 05,06,07,08{% endif %}</label>  <br>
                                           <input type="radio" id="radio-input-1" checked>
                                           <label for="radio-input-1" class="input-helper input-helper--radio"> <span>Fee</span> : {{ event.fee }} </label>   <br>
                                           <input type="radio" id="radio-input-1" checked>
@@ -126,13 +189,15 @@
                                           <br>
                                           <!-- <button onclick="call_counter('/events/', 12345);">Register Now</button> -->
                                           <!--We have temporarily closed registrations while we fix an error on our database. Sorry for the inconvenience.-->
-                                          {% if event.linkurl %}
-                                          <a class="btn btn-info" href="{{event.linkurl}}">Register Now</a>
-                                          {% elif event.title == "Selfeyaan" or event.title == "Weapon Expo" or event.title == "Electrical Expo" %}
-                                          <button type="button" name="button" style="display : none;">Register</button>
-                                          {% else %}
-                                          <input type="text" name="referal" id="referal" hidden>
-                                          <a id="register" class="btn btn-info" href="/events/?event={{event.title}}&ref=referal.value">Register Now</a>
+                                          {% if event.registration == "yes" %}
+                                            {% if event.linkurl %}
+                                            <a class="btn btn-info" href="{{event.linkurl}}">Register Now</a>
+                                            <!-- {% elif event.title == "Selfeyaan" or event.title == "Weapon Expo" or event.title == "Electrical Expo" or event.title == "Wheelies" or event.title == "Dr Drive" or event.title == "Evolution Expo" or event.title == "Smart Mirror" or event.title == "Graphical Waterfall" or event.title == "PI Wall" %}
+                                            <button type="button" name="button" style="display : none;">Register</button> -->
+                                            {% else %}
+                                            <input type="text" name="referal" id="referal" hidden>
+                                            <a id="register" class="btn btn-info" href="/events/?event={{event.title}}&ref=referal.value">Register Now</a>
+                                            {% endif %}
                                           {% endif %}
                                           <!--{% if event.title == "Blockathon" %}
                                           <a class="btn btn-info" href="https://www.google.com">Register Now</a>
@@ -143,7 +208,12 @@
                                           {% else %}
                                           <a class="btn btn-info" href="/events/?event={{event.title}}">Register Now</a>
                                           {% endif %}-->
-                                          <button id="share" class="btn btn-info">Share</button>
+
+                                      {% if ref %}
+                                                <button id="share-ref" class="btn btn-info">Share</button>
+                                           {% else %}
+                                                  <button id="share" class="btn btn-info">Share</button> <br>
+                                           {% endif %}
                                     </div>
                               </div>
                         </div>
@@ -173,5 +243,6 @@
 
 
             <div class="whitespaces"></div>
+
 
 {% endblock %}

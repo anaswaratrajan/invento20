@@ -30,10 +30,13 @@
                     <div class="box-container">
                       <div class="box-item">
                       <div class="flip-box">
-                        <div class="flip-box-front text-center" style="background-image: url('{{competition.imageurl}}');">
+                        <div class="flip-box-front text-center">
+                          <img style="border-radius: 10px;" src="{{competition.imageurl}}" alt="">
                         </div>
-                        <div class="flip-box-back text-center" style="background-image: linear-gradient(to right, #09203f,  #537895);
-                        ">
+                        <div class="flip-box-back text-center">
+                          <figure class="tint">
+                            <img class="overlay-bg" style="border-radius: 10px;" src="{{competition.imageurl}}" alt="">
+                          </figure>
                           <div class="inner color-white">
                             <h3 class="flip-box-header" style="color: #fff;">{{ competition.title }}</h3>
                             <p style="color: #fff;">{{ competition.short_desc }}</p>
@@ -77,10 +80,13 @@
                     <div class="box-container">
                       <div class="box-item">
                       <div class="flip-box">
-                        <div class="flip-box-front text-center" style="background-image: url('{{workshop.imageurl}}');">
+                        <div class="flip-box-front text-center">
+                          <img style="border-radius: 10px;" src="{{workshop.imageurl}}" alt="">
                         </div>
-                        <div class="flip-box-back text-center" style="background-image: linear-gradient(to right, #09203f,  #537895);
-                        ">
+                        <div class="flip-box-back text-center">
+                          <figure class="tint">
+                            <img class="overlay-bg" style="border-radius: 10px;" src="{{workshop.imageurl}}" alt="">
+                          </figure>
                           <div class="inner color-white">
                             <h3 class="flip-box-header" style="color: #fff;">{{ workshop.title }}</h3>
                             <p style="color: #fff;">{{ workshop.short_desc }}</p>
@@ -123,10 +129,13 @@
                     <div class="box-container">
                       <div class="box-item">
                       <div class="flip-box">
-                        <div class="flip-box-front text-center" style="background-image: url('{{show.imageurl}}');">
+                        <div class="flip-box-front text-center">
+                          <img style="border-radius: 10px;" src="{{show.imageurl}}" alt="">
                         </div>
-                        <div class="flip-box-back text-center" style="background-image: linear-gradient(to right, #09203f,  #537895);
-                        ">
+                        <div class="flip-box-back text-center">
+                          <figure class="tint">
+                            <img class="overlay-bg" style="border-radius: 10px;" src="{{show.imageurl}}" alt="No image">
+                          </figure>
                           <div class="inner color-white">
                             <h3 class="flip-box-header" style="color: #fff;">{{ show.title }}</h3>
                             <p style="color: #fff;">{{ show.short_desc }}</p>

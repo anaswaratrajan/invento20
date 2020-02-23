@@ -102,7 +102,7 @@ $(document).on('submit','#ambassador_register_form', function(e) {
 
   });
 </script> -->
-<div class="page-content">
+<div class="page-content" style="background-color:#000000;">
     <div class="form-v9-content" style="background-image: url({% static 'invento19/images/form-v9.jpg' %});">
       <form class="form-detail" id="ambassador_register_form" action="" method="post">{% csrf_token %}
       <h2 style="color: #fff;">Registration Form</h2>
@@ -130,14 +130,7 @@ $(document).on('submit','#ambassador_register_form', function(e) {
           <input type="text" name="department" id="department" class="input-text" placeholder=" Your Department" required>
         </div>
       </div>
-      <!--  <div class="form-row-total">
-        <div class="form-row">
-          <input type="text" name="referalcode" id="referalcode" class="input-text" placeholder="Referal Code" hidden>
-        </div>
-       <div class="form-row">
-          <input type="text" name="text" id="department" class="input-text" placeholder=" Your Department" required>
-        </div>
-      </div> -->
+
       <div >
          {% if message %}
               {{ message }}

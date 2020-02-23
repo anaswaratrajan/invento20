@@ -36,7 +36,9 @@ html, body {
     background-position: 50% 50%;
     background-repeat: no-repeat;
 } */
-
+.table{
+  background: #282828 !important;
+}
 /* NAVIGATION BAR */
 
 .nav {
@@ -3290,7 +3292,24 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 /*--------- End Portfolio Area -------------*/
+.tint {
+  position: relative;
+  float: left;
+  cursor: pointer;
+}
 
+.tint:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 7px;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to right, #09203f,  #537895);
+  transition: background .5s linear;
+  border-radius: 10px;
+}
 /*-------- start recent-blog Area -------------*/
 .recent-blog-area {
   background: #f9f9ff;
@@ -5249,7 +5268,7 @@ input:-moz-placeholder { /* Firefox 18- */
   position: absolute;
   left: 0;
   width: 100%;
-  padding: 60px;
+  padding: 30px;
   outline: 1px solid transparent;
   -webkit-perspective: inherit;
   perspective: inherit;

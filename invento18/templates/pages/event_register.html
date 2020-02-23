@@ -11,6 +11,11 @@
 }
 </style>
 <script>
+  $(document).ready(function(){
+    $(document).prop('title', 'Register Form - Invento 2020');
+  });
+  </script>
+<script>
   //URL Value access
   $(document).ready(function(){
     //<!-- $('select>option:eq(1)').attr('selected', true); -->
@@ -18,28 +23,31 @@
     //<!-- var str = jQuery.param( params ); -->
 
     //<!-- console.log($.urlParam('event')); -->
-     //<!-- console.log(GetParameterValues('event').replace(/%20/g,' ')); -->
-    $('#events').val(GetParameterValues('event').replace(/%20/g,' '));
-    function GetParameterValues(param) {
-      var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-      for (var i = 0; i < url.length; i++) {
-          var urlparam = url[i].split('=');
-          if (urlparam[0] == param) {
-              return urlparam[1];
+
+    var getUrlParameter = function getUrlParameter(sParam) {
+      var sPageURL = window.location.search.substring(1),
+          sURLVariables = sPageURL.split('&'),
+          sParameterName,
+          i;
+
+      for (i = 0; i < sURLVariables.length; i++) {
+          sParameterName = sURLVariables[i].split('=');
+
+          if (sParameterName[0] === sParam) {
+              return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
           }
       }
-  }
-  $('#referal_code').val(GetParameterValues('ref'));
-    function GetParameterValues(param) {
-      var url = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-      for (var i = 0; i < url.length; i++) {
-          var urlparam = url[i].split('=');
-          var urlparamcap = urlparam[1].toUpperCase();
-          if (urlparam[0] == param) {
-              return urlparamcap;
-          }
-      }
-  }
+  };
+  console.log(getUrlParameter('event').replace(/%20/g,' '));
+  console.log(getUrlParameter('ref').replace(/%20/g,' '));
+  //  var str = GetParameterValues('event').replace(/%20/g,' ');
+    //str = str.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+   //   return letter.toUpperCase();
+   // });
+    //alert(str);
+   //  console.log(GetParameterValues('event').replace(/%20/g,' '));
+    $('#events').val(getUrlParameter('event').replace(/%20/g,' '));
+  $('#referal_code').val(getUrlParameter('ref'));
     if($('#referal_code').val()=='') {
       $('#referal_code').val('INV2020')
     }

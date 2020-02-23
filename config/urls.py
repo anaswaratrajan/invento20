@@ -9,7 +9,7 @@ from django.views import defaults as default_views
 from rest_framework import routers
 
 
-from invento18.events.views import EventDetailView, departmentview, event_register_view, event_register, campus_ambassador, ambassador_register_view, ambassador_login_view, profile, logout, leaderboard
+from invento18.events.views import EventDetailView, departmentview, event_register_view, event_register, campus_ambassador, ambassador_register_view, ambassador_login_view, profile, logout, leaderboard, caportal,developers
 from invento18.events.serializers import EventList
 
 urlpatterns = [
@@ -19,8 +19,10 @@ urlpatterns = [
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
     url(r'^3d/$', TemplateView.as_view(template_name='pages/3d.html'), name='3d'),
     url(r'share/$', TemplateView.as_view(template_name='pages/ambassador.html'), name='share'),
-    url(r'caportal/$', TemplateView.as_view(template_name='pages/campus.html'), name='campus-ambassador'),
-    url(r'developers/$', TemplateView.as_view(template_name='pages/developers.html'), name='developers'),
+    url(r'caportal/$', caportal, name='campus-ambassador'),
+    url(r'developer-page/$', developers, name='developers'),
+    url(r'proshow/$', TemplateView.as_view(template_name='pages/proshow.html'), name='proshow'),
+    url(r'preorder/$', TemplateView.as_view(template_name='pages/preorder.html'), name='preorder'),
     url(r'^events/$', event_register, name='events'),
     url(r'^event-register/$', event_register_view, name='event-register'),
     url(r'^campus-ambassador/$', campus_ambassador, name='cambus-ambassador'),
